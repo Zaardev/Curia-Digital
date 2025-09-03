@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "contentful": "^11.7.15",
+    "dotenv": "^17.2.2",
     "luxon": "^3.7.1"
   }
 }
