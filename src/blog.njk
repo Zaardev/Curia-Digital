@@ -1,0 +1,8 @@
+<ul>
+  {% for post in collections.posts %}
+    <li>
+      <a href="/blog/{{ post.slug }}/">{{ post.title }}</a>
+      <small>{{ post.date }}</small>
+    </li>
+  {% endfor %}
+</ul>
