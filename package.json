@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/Zaardev/Curia-Digital#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "@stackbit/cms-contentful": "^1.0.33",
+    "@stackbit/types": "^2.1.14"
   },
   "dependencies": {
     "contentful": "^11.7.15",
