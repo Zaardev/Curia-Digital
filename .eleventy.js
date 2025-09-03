@@ -2,18 +2,25 @@ require("dotenv").config();
 const contentful = require("contentful");
 
 module.exports = async function(eleventyConfig) {
-  let entries = { items: [] };
+  // Choose token depending on environment
+  const isPreview = process.env.CONTEXT === "deploy-preview" || process.env.CONTENTFUL_ENV === "preview";
 
-  if (process.env.CONTENTFUL_SPACE_ID && process.env.CONTENTFUL_ACCESS_TOKEN) {
-    const client = contentful.createClient({
-      space: process.env.CONTENTFUL_SPACE_ID,
-      accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
-    });
+  const accessToken = isPreview
+    ? process.env.CONTENTFUL_PREVIEW_TOKEN
+    : process.env.CONTENTFUL_DELIVERY_TOKEN;
 
-    entries = await client.getEntries({ content_type: "blogPost" });
-  } else {
-    console.warn("⚠️ Missing Contentful tokens. Building without blog posts.");
+  if (!process.env.CONTENTFUL_SPACE_ID || !accessToken) {
+    throw new Error("❌ Missing Contentful environment variables. Check Netlify settings.");
   }
+
+  const client = contentful.createClient({
+    space: process.env.CONTENTFUL_SPACE_ID,
+    accessToken: accessToken,
+    host: isPreview ? "preview.contentful.com" : "cdn.contentful.com" // 👈 important!
+  });
+
+  // Fetch blog posts
+  const entries = await client.getEntries({ content_type: "blogPost" });
 
   eleventyConfig.addCollection("posts", () => {
     return entries.items.map(item => ({
