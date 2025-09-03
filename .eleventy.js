@@ -1,6 +1,15 @@
+require("dotenv").config();
 const contentful = require("contentful");
 
 module.exports = async function(eleventyConfig) {
+  if (!process.env.CONTENTFUL_SPACE_ID || !process.env.CONTENTFUL_ACCESS_TOKEN) {
+    throw new Error(
+      "❌ Missing Contentful environment variables.\n" +
+      "Set CONTENTFUL_SPACE_ID and CONTENTFUL_ACCESS_TOKEN in your .env (local) " +
+      "or in Netlify → Site settings → Build & deploy → Environment."
+    );
+  }
+
   const client = contentful.createClient({
     space: process.env.CONTENTFUL_SPACE_ID,
     accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
