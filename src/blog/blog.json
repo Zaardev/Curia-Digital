@@ -1,0 +1,9 @@
+{
+  "pagination": {
+    "data": "contentful.posts",
+    "size": 1,
+    "alias": "post"
+  },
+  "permalink": "/blog/{{ post.slug }}/index.html",
+  "layout": "post.njk"
+}
