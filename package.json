@@ -23,8 +23,10 @@
     "@stackbit/types": "^2.1.14"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.13",
     "contentful": "^11.7.15",
     "dotenv": "^17.2.2",
-    "luxon": "^3.7.1"
+    "luxon": "^3.7.1",
+    "tailwindcss": "^4.1.13"
   }
 }
