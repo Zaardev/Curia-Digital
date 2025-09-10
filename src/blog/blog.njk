@@ -1,7 +1,26 @@
-{% for post in contentful %}
+---
+pagination:
+  data: contentful.posts
+  size: 5
+  alias: posts
+permalink: "/blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber }}/{% endif %}index.html"
+---
+
+<h1>Blog</h1>
+
+{% for post in posts %}
   <article>
-    <h2><a href="{{ post.permalink }}">{{ post.title }}</a></h2>
+    <h2><a href="/blog/{{ post.slug }}/">{{ post.title }}</a></h2>
     <p>{{ post.date }}</p>
     <div>{{ post.body | safe }}</div>
   </article>
 {% endfor %}
+
+<nav>
+  {% if pagination.href.previous %}
+    <a href="{{ pagination.href.previous }}">← Previous</a>
+  {% endif %}
+  {% if pagination.href.next %}
+    <a href="{{ pagination.href.next }}">Next →</a>
+  {% endif %}
+</nav>

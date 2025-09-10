@@ -1,0 +1,14 @@
+---
+pagination:
+  data: contentful.posts
+  size: 1
+  alias: post
+  addAllPagesToCollections: true
+permalink: "/blog/{{ post.slug }}/index.html"
+---
+
+<article>
+  <h1>{{ post.title }}</h1>
+  <p><time datetime="{{ post.date }}">{{ post.date }}</time></p>
+  <div>{{ post.body | safe }}</div>
+</article>
